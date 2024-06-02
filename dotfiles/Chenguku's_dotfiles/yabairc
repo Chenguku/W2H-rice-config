@@ -1,0 +1,71 @@
+# Source: hbthen3rd's dotfiles https://github.com/hbthen3rd/dotfiles
+
+gapsize=5
+margin=40
+
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa && sleep 1 && yabai -m config window_shadow off"
+sudo yabai --load-sa
+
+yabai -m config                             \
+  window_shadow              off            \
+                                            \
+  mouse_action1              move           \
+  mouse_action2              resize         \
+  mouse_drop_action          swap          \
+                                            \
+  mouse_modifier             fn            \
+  focus_follows_mouse        off            \
+  mouse_follows_focus        off           \
+                                            \
+  layout                     bsp            \
+  top_padding                $margin        \
+  bottom_padding             $margin        \
+  left_padding               $margin        \
+  right_padding              $margin        \
+  window_gap                 $gapsize       \
+                                            \
+  window_opacity             off            \
+  window_opacity_duration    0.15           \
+  active_window_opacity      1.0            \
+  normal_window_opacity      0.8            \
+  window_placement           second_child   \
+                                            \
+  window_animation_duration  0.03            \
+  window_animation_easing    ease_out_quint \
+                                            \
+  insert_feedback_color      0xaa676767
+
+yabai -m signal --add event=window_created action='echo r | nc 127.0.0.1 1337'
+yabai -m signal --add event=window_destroyed action='echo r | nc 127.0.0.1 1337'
+
+# Demaximize upon loss of focus
+# TODO avoid breaking window stacks
+yabai -m signal --add event=window_focused \
+  action="yabai -m query --windows --window recent | jq -e '.\"has-fullscreen-zoom\"' && yabai -m window recent --toggle zoom-fullscreen"
+
+# System Preferences
+yabai -m rule --add app="^System Settings$" manage=off
+
+# ephemeral
+yabai -m rule --add title="^ephemeral-" manage=off grid=6:4:1:1:2:4
+
+$HOME/.config/yabai/centerstubborn.sh
+
+# enable nibar
+
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"nibar-spaces-jsx\"'"
+
+# if using multple displays, add an additional rule for "display_changed" event
+yabai -m signal --add event=display_changed \
+    action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"nibar-spaces-jsx\"'"
+
+# add these rules to auto-update the "windows" widget
+yabai -m signal --add event=window_focused \
+    action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"nibar-windows-jsx\"'"
+yabai -m signal --add event=window_destroyed \
+    action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"nibar-windows-jsx\"'"
+yabai -m signal --add event=window_created \
+    action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"nibar-windows-jsx\"'"
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"nibar-windows-jsx\"'"
