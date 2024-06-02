@@ -1,6 +1,6 @@
 # Welcome2Heaven's fun-colorful-rice
 
-**Note:** I have currently updated nibar so that it is functional for Apple Silicon Macs (at least in Sonoma 14.5.) No other changes have been made thus far. 
+**Note:** I have currently updated the nibar config so that it is functional for Apple Silicon Macs (at least in Sonoma 14.5.) No other changes have been made thus far. 
 
 **Directions:** Refer to the original README for instructions.
 
