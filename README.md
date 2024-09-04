@@ -1,6 +1,6 @@
 # Welcome2Heaven's fun-colorful-rice
 
-**Note:** I have currently updated the nibar config so that the date & time widget is functional for Apple Silicon Macs (at least in Sonoma 14.5.) Otherwise, only minor changes have been made.
+**Note:** I have currently updated the nibar config so that the date & time widget is functional for Apple Silicon Macs (tested in Sonoma 14.5+.) Otherwise, only minor changes have been made.
 
 **Directions:** Refer to the original README for instructions.
 
